@@ -1,0 +1,26 @@
+.idea/
+.vscode/
+*.iml
+*.class
+*.log
+*.tmp
+*.bak
+*.swp
+bin/
+out/
+node_modules/
+coverage/
+target/
+.m2/
+*.jar
+*.war
+*.ear
+.env
+.DS_Store
+Thumbs.db
+
+# Contenido privado o local que no conviene subir al repo publico
+aplicaciones-laborales/
+setup/
+repos-privados/
+
