@@ -10,6 +10,13 @@ public class FactorialConMetodo {
         System.out.print("Ingrese un número: ");
         int numero = scanner.nextInt();
 
+        // Validar que el número sea no negativo
+        if (numero < 0) {
+            System.out.println("El factorial no está definido para números negativos.");
+            scanner.close();
+            return;
+        }
+        
         long factorial = calcularFactorial(numero);
         System.out.println("El factorial de " + numero + " es: " + factorial);
 
