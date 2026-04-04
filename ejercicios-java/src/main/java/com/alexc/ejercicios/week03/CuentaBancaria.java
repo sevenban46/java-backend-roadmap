@@ -12,10 +12,18 @@ public class CuentaBancaria {
         this.saldo = saldo;
     }
 
+    /**
+     * Deposita dinero en la cuenta.
+     * @param cantidad La cantidad a depositar.
+     */
     public void depositar(double cantidad) {
         this.saldo += cantidad;
     }
 
+    /**
+     * Retira dinero de la cuenta.
+     * @param cantidad La cantidad a retirar.
+     */
     public void retirar(double cantidad) {
         if (cantidad <= this.saldo) {
             this.saldo -= cantidad;
