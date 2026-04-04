@@ -15,6 +15,8 @@ public class Cajero {
         String contrasenaUsuario = "1234";
         Scanner scanner = new Scanner(System.in);
 
+        boolean accesoConcedido = false;
+
         System.out.println("Bienvenido al cajero CSC Bank");
 
         System.out.print("Ingrese su nombre de usuario: ");
@@ -24,6 +26,7 @@ public class Cajero {
 
         do {
             if (nombreIngresado.equals(nombreUsuario) && contrasenaIngresada.equals(contrasenaUsuario)) {
+                accesoConcedido = true;
                 break;
             } else {
                 intentos++;
@@ -39,43 +42,48 @@ public class Cajero {
                 contrasenaIngresada = scanner.next();
             }
         } while (true);
-        
-        do {
-            System.out.print("\nBienvenido " + nombreUsuario + "! Puedes retirar dinero de tu cuenta.");
-            System.out.println("\n--- Nueva Operación ---");
-            System.out.println("Los billetes disponibles son: " + String.join(", ", billeteDisponible));
-            System.out.println("Su saldo inicial es: $" + saldoInicial);
-            System.out.print("Ingrese el monto a retirar: ");
-            montoRetirar = scanner.nextInt();
 
-            while (montoRetirar < MONTO_MIN || montoRetirar > saldoInicial || montoRetirar > MONTO_MAX
-                    || montoRetirar % 5 != 0) {
-
-                if (montoRetirar > saldoInicial) {
-                    System.out.println("Error: Fondos insuficientes. Su saldo es " + saldoInicial);
-                } else if (montoRetirar > MONTO_MAX) {
-                    System.out.println("Error: El monto máximo es $" + MONTO_MAX);
-                } else if (montoRetirar < MONTO_MIN) {
-                    System.out.println("Error: El monto mínimo es $" + MONTO_MIN);
-                } else if (montoRetirar % 5 != 0) {
-                    System.out.println("Error: El monto debe ser múltiplo de 5.");
-                }
-                System.out.print("Ingrese un monto válido: $");
+        if (accesoConcedido == true) {
+            System.out.println("Acceso exitoso. Bienvenido " + nombreUsuario + "!");
+            do {
+                System.out.print("\nBienvenido " + nombreUsuario + "! Puedes retirar dinero de tu cuenta.");
+                System.out.println("\n--- Nueva Operación ---");
+                System.out.println("Los billetes disponibles son: " + String.join(", ", billeteDisponible));
+                System.out.println("Su saldo inicial es: $" + saldoInicial);
+                System.out.print("Ingrese el monto a retirar: ");
                 montoRetirar = scanner.nextInt();
-            }
-            saldoInicial -= montoRetirar;
-            System.out.println("Has retirado: $" + montoRetirar);
-            System.out.println("Tu saldo actual es: $" + saldoInicial);
 
-            if (saldoInicial < MONTO_MIN) {
-                System.out.println("Saldo insuficiente para más operaciones.");
-                respuesta = "n";
-            } else {
-                System.out.print("\n¿Desea realizar otra operación? (s/n): ");
-                respuesta = scanner.next();
-            }
-        } while (respuesta.equalsIgnoreCase("s"));
+                while (montoRetirar < MONTO_MIN || montoRetirar > saldoInicial || montoRetirar > MONTO_MAX
+                        || montoRetirar % 5 != 0) {
 
-        scanner.close();
+                    if (montoRetirar > saldoInicial) {
+                        System.out.println("Error: Fondos insuficientes. Su saldo es " + saldoInicial);
+                    } else if (montoRetirar > MONTO_MAX) {
+                        System.out.println("Error: El monto máximo es $" + MONTO_MAX);
+                    } else if (montoRetirar < MONTO_MIN) {
+                        System.out.println("Error: El monto mínimo es $" + MONTO_MIN);
+                    } else if (montoRetirar % 5 != 0) {
+                        System.out.println("Error: El monto debe ser múltiplo de 5.");
+                    }
+                    System.out.print("Ingrese un monto válido: $");
+                    montoRetirar = scanner.nextInt();
+                }
+                saldoInicial -= montoRetirar;
+                System.out.println("Has retirado: $" + montoRetirar);
+                System.out.println("Tu saldo actual es: $" + saldoInicial);
+
+                if (saldoInicial < MONTO_MIN) {
+                    System.out.println("Saldo insuficiente para más operaciones.");
+                    respuesta = "n";
+                } else {
+                    System.out.print("\n¿Desea realizar otra operación? (s/n): ");
+                    respuesta = scanner.next();
+                }
+            } while (respuesta.equalsIgnoreCase("s"));
+
+            scanner.close();
+        } else {
+            System.out.println("Acceso denegado. Nombre de usuario o contraseña incorrectos.");
+        }
     }
 }
