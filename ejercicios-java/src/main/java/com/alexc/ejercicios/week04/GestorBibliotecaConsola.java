@@ -14,6 +14,5 @@ public class GestorBibliotecaConsola {
         libro1.prestar();
         libro1.devolver();
         libro2.devolver();
-
     }
 }
