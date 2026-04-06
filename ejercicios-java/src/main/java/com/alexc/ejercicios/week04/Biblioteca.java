@@ -23,5 +23,4 @@ public class Biblioteca {
     public Libro[] getLibros() {
         return Arrays.copyOf(libros, contador);
     }
-
 }

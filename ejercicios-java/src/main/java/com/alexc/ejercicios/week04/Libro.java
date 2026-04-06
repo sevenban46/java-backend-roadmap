@@ -33,4 +33,15 @@ public class Libro {
             System.out.println("El libro " + titulo + " no está disponible.");
         }
     }
+
+    public void devolver() {
+        if (!disponible) {
+            disponible = true;
+            System.out.println("Has devuelto el libro: " + titulo);
+        } else {
+            System.out.println("El libro " + titulo + " ya está disponible.");
+        }
+    }
+
+    
 }
