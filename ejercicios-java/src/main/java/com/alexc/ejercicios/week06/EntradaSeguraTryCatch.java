@@ -19,6 +19,6 @@ public class EntradaSeguraTryCatch {
             }
         }
 
-         scanner.close(); // Cerrar el scanner después de cada intento
+        scanner.close(); // Cerrar el scanner después de cada intento
     }
 }
