@@ -108,7 +108,7 @@ public class Cajero {
                         break;
                     case 4:
                         System.out.println("Gracias por usar el cajero CSC Bank. ¡Hasta luego!");
-                        respuesta = "n";
+                        System.exit(0);
                         break;
                     default:
                         System.out.println("Opción no válida.");
@@ -123,7 +123,7 @@ public class Cajero {
                     respuesta = scanner.next();
                 }
             } while (respuesta.equalsIgnoreCase("s"));
-
+            System.out.println("Gracias por usar el cajero CSC Bank. ¡Hasta luego!");
             scanner.close();
         } else {
             System.out.println("Acceso denegado. Nombre de usuario o contraseña incorrectos.");
