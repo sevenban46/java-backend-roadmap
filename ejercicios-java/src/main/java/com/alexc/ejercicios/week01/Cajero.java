@@ -1,6 +1,7 @@
 package com.alexc.ejercicios.week01;
 
 import java.util.Scanner;
+import java.util.Arrays;
 //Dame requerimientos para el siguiente programa: Un cajero automático que permita a los usuarios retirar dinero, consultar su saldo y abonar dinero a su cuenta. 
 // El programa debe validar que el monto a retirar no exceda el saldo disponible y que el monto a abonar sea positivo. 
 // Además, el programa debe permitir al usuario realizar múltiples operaciones hasta que decida salir.
@@ -10,7 +11,7 @@ public class Cajero {
         int saldoInicial = 1000;
         final int MONTO_MAX = 500;
         final int MONTO_MIN = 5;
-        final String[] billeteDisponible = { "$5", "$10", "$20" };
+        final int[] billeteDisponible = {5, 10, 20};
         int montoRetirar = 0;
         String respuesta = "n";
         int intentos = 0;
@@ -61,7 +62,7 @@ public class Cajero {
                 switch (opcion) {
                     case 1:
                         // Lógica para retirar dinero
-                        System.out.println("Los billetes disponibles son: " + String.join(", ", billeteDisponible));
+                        System.out.println("Los billetes disponibles son: " + Arrays.toString(billeteDisponible));
                         System.out.println("Su saldo inicial es: $" + saldoInicial);
                         System.out.print("Ingrese el monto a retirar: ");
                         montoRetirar = scanner.nextInt();
