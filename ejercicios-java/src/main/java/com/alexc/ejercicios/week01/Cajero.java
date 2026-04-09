@@ -2,10 +2,6 @@ package com.alexc.ejercicios.week01;
 
 import java.util.Scanner;
 import java.util.Arrays;
-//Dame requerimientos para el siguiente programa: Un cajero automático que permita a los usuarios retirar dinero, consultar su saldo y abonar dinero a su cuenta. 
-// El programa debe validar que el monto a retirar no exceda el saldo disponible y que el monto a abonar sea positivo. 
-// Además, el programa debe permitir al usuario realizar múltiples operaciones hasta que decida salir.
-
 public class Cajero {
     public static void main(String[] args) {
         int saldoInicial = 1000;
@@ -107,8 +103,6 @@ public class Cajero {
                         System.out.println("Tu saldo actual es: $" + saldoInicial);
                         break;
                     case 4:
-                        System.out.println("Gracias por usar el cajero CSC Bank. ¡Hasta luego!");
-                        System.exit(0);
                         break;
                     default:
                         System.out.println("Opción no válida.");
