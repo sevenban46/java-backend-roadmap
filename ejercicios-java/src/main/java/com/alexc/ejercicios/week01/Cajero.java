@@ -2,14 +2,15 @@ package com.alexc.ejercicios.week01;
 
 import java.util.Scanner;
 import java.util.Arrays;
+
 public class Cajero {
     public static void main(String[] args) {
         int saldoInicial = 1000;
         final int MONTO_MAX = 500;
         final int MONTO_MIN = 5;
-        final int[] billeteDisponible = {5, 10, 20};
+        final int[] billeteDisponible = { 5, 10, 20 };
         int montoRetirar = 0;
-        String respuesta = "n";
+        boolean salir = false;
         int intentos = 0;
         String nombreUsuario = "Alex";
         String contrasenaUsuario = "1234";
@@ -43,7 +44,7 @@ public class Cajero {
             }
         } while (true);
 
-        if (accesoConcedido == true) {
+        if (accesoConcedido) {
             System.out.println("Acceso exitoso. Bienvenido " + nombreUsuario + "!");
             do {
                 System.out.print("\nBienvenido " + nombreUsuario + "! Puedes retirar dinero de tu cuenta.");
@@ -53,70 +54,90 @@ public class Cajero {
                 System.out.println("3. Abonar dinero");
                 System.out.println("4. Salir");
                 System.out.print("Seleccione una opción: ");
-                int opcion = scanner.nextInt();
+                int opcion;
 
-                switch (opcion) {
-                    case 1:
-                        // Lógica para retirar dinero
-                        System.out.println("Los billetes disponibles son: " + Arrays.toString(billeteDisponible));
-                        System.out.println("Su saldo inicial es: $" + saldoInicial);
-                        System.out.print("Ingrese el monto a retirar: ");
-                        montoRetirar = scanner.nextInt();
+                try {
+                    opcion = scanner.nextInt();
 
-                        while (montoRetirar < MONTO_MIN || montoRetirar > saldoInicial || montoRetirar > MONTO_MAX
-                                || montoRetirar % 5 != 0) {
+                    switch (opcion) {
+                        case 1:
+                            // Lógica para retirar dinero
+                            System.out.println("Los billetes disponibles son: " + Arrays.toString(billeteDisponible));
+                            System.out.println("Su saldo inicial es: $" + saldoInicial);
+                            System.out.print("Ingrese el monto a retirar: ");
+                            try {
+                                montoRetirar = scanner.nextInt();
 
-                            if (montoRetirar > saldoInicial) {
-                                System.out.println("Error: Fondos insuficientes. Su saldo es " + saldoInicial);
-                            } else if (montoRetirar > MONTO_MAX) {
-                                System.out.println("Error: El monto máximo es $" + MONTO_MAX);
-                            } else if (montoRetirar < MONTO_MIN) {
-                                System.out.println("Error: El monto mínimo es $" + MONTO_MIN);
-                            } else if (montoRetirar % 5 != 0) {
-                                System.out.println("Error: El monto debe ser múltiplo de 5.");
+                                while (montoRetirar < MONTO_MIN || montoRetirar % 5 != 0
+                                        || montoRetirar > MONTO_MAX
+                                        || montoRetirar > saldoInicial) {
+
+                                    if (montoRetirar < MONTO_MIN) {
+                                        System.out.println("Error: El monto mínimo es $" + MONTO_MIN);
+                                    } else if (montoRetirar % 5 != 0) {
+                                        System.out.println("Error: El monto debe ser múltiplo de 5.");
+                                    } else if (montoRetirar > MONTO_MAX) {
+                                        System.out.println("Error: El monto máximo es $" + MONTO_MAX);
+                                    } else if (montoRetirar > saldoInicial) {
+                                        System.out.println("Error: Fondos insuficientes. Su saldo es " + saldoInicial);
+                                    }
+                                    System.out.print("Ingrese un monto válido: $");
+                                    montoRetirar = scanner.nextInt();
+                                }
+                            } catch (Exception e) {
+                                System.out.println("Error: Entrada no válida. Por favor, ingrese un número.");
+                                scanner.next(); // Limpiar el buffer
+                                continue; // Volver al inicio del bucle
                             }
-                            System.out.print("Ingrese un monto válido: $");
-                            montoRetirar = scanner.nextInt();
-                        }
-                        saldoInicial -= montoRetirar;
-                        System.out.println("Has retirado: $" + montoRetirar);
-                        break;
-                    case 2:
-                        System.out.println("Tu saldo actual es: $" + saldoInicial);
-                        break;
-                    case 3:
-                        System.out.print("Ingrese el monto a abonar: $");
-                        int montoAbonar = scanner.nextInt();
-                        while (montoAbonar < MONTO_MIN || montoAbonar > MONTO_MAX || montoAbonar % 5 != 0) {
-                            if (montoAbonar > MONTO_MAX) {
-                                System.out.println("Error: El monto máximo es $" + MONTO_MAX);
-                            } else if (montoAbonar < MONTO_MIN) {
-                                System.out.println("Error: El monto mínimo es $" + MONTO_MIN);
-                            } else if (montoAbonar % 5 != 0) {
-                                System.out.println("Error: El monto debe ser múltiplo de 5.");
+                            saldoInicial -= montoRetirar;
+                            System.out.println("Has retirado: $" + montoRetirar);
+                            break;
+                        case 2:
+                            System.out.println("Tu saldo actual es: $" + saldoInicial);
+                            break;
+                        case 3:
+                            System.out.print("Ingrese el monto a abonar: $");
+                            int montoAbonar;
+                            try {
+                                montoAbonar = scanner.nextInt();
+                                while (montoAbonar < MONTO_MIN || montoAbonar % 5 != 0) {
+                                    if (montoAbonar < MONTO_MIN) {
+                                        System.out.println("Error: El monto mínimo es $" + MONTO_MIN);
+                                    } else if (montoAbonar % 5 != 0) {
+                                        System.out.println("Error: El monto debe ser múltiplo de 5.");
+                                    } else {
+                                        System.out.print("Ingrese un monto válido: $");
+                                        montoAbonar = scanner.nextInt();
+                                    }
+
+                                }
+                            } catch (Exception e) {
+                                System.out.println("Error: Entrada no válida. Por favor, ingrese un número.");
+                                scanner.next(); // Limpiar el buffer
+                                continue; // Volver al inicio del bucle
                             }
-                            System.out.print("Ingrese un monto válido: $");
-                            montoAbonar = scanner.nextInt();
-                        }
-                        saldoInicial += montoAbonar;
-                        System.out.println("Has abonado: $" + montoAbonar);
-                        System.out.println("Tu saldo actual es: $" + saldoInicial);
-                        break;
-                    case 4:
-                        break;
-                    default:
-                        System.out.println("Opción no válida.");
-                        break;
+                            saldoInicial += montoAbonar;
+                            System.out.println("Has abonado: $" + montoAbonar);
+                            System.out.println("Tu saldo actual es: $" + saldoInicial);
+                            break;
+                        case 4:
+                            salir = true;
+                            break;
+                        default:
+                            System.out.println("Opción no válida.");
+                            break;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: Entrada no válida. Por favor, ingrese un número del 1 al 4.");
+                    scanner.next(); // Limpiar el buffer
+                    continue; // Volver al inicio del bucle
                 }
 
                 if (saldoInicial < MONTO_MIN) {
                     System.out.println("Saldo insuficiente para más operaciones.");
-                    respuesta = "n";
-                } else {
-                    System.out.print("\n¿Desea realizar otra operación? (s/n): ");
-                    respuesta = scanner.next();
-                }
-            } while (respuesta.equalsIgnoreCase("s"));
+                    salir = true;
+                } 
+            } while (!salir);
             System.out.println("Gracias por usar el cajero CSC Bank. ¡Hasta luego!");
             scanner.close();
         } else {
